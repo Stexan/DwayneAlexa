@@ -9,8 +9,8 @@ const states = {
 };
 
 const messages = {
-    initial       : 'Ok! What do you want to do?',
-    squatsProposal: 'Hmm, I have a workout just for you. Just tell me when you\'re ready.',
+    initial       : 'Ok! What\'s your goal?',
+    squatsProposal: 'Then you\'d better be ready cause we\'re doing some squats. 1 is for up, 2 for half-down position and 3 is for down. Tell me when you\'re ready.',
     startSquats   : 'Lets start!' +
     '<break time="1000ms"/>' +
     '<prosody volume="x-loud" rate="fast">3!</prosody>' +
@@ -39,7 +39,8 @@ const messages = {
     '<prosody volume="x-loud" rate="fast">2!</prosody>' +
     '<break time="300ms"/>' +
     '<prosody volume="x-loud" rate="fast">1!</prosody>' +
-    '<break time="300ms"/>',
+    '<break time="300ms"/>' +
+    '<prosody rate="fast">Ok, that\'s enough, you don\'t want to get all sweaty on the stage with all this people watching you!</prosody>',
     greeting      : 'Hello everyone and welcome to Hack TM 2018!',
     fallowup      : '. Would you like to hear more trivia?',
     help          : 'I can assist you in your everyday sport activities, give you exercises instructions and statistics about your progress. Try saying you want some big legs.',
@@ -108,7 +109,7 @@ const responseHandler = Alexa.CreateStateHandler(states.START, {
     'AMAZON.YesIntent'    : function() {
         Comm.sendStartTrainingSignal(() => {
             lastAlexaPhrase = 'whatsNext';
-            this.emit(':ask', messages.startSquats + messages.whatsNext);
+            this.emit(':ask', messages.startSquats);
         });
     },
     'AMAZON.NoIntent'     : function() {
