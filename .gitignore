@@ -1,0 +1,17 @@
+# Swap files
+alexa/*.swp
+*.swp
+
+# Deployable package zip
+index/index.zip
+
+# Dependency directories
+alexa/src/node_modules/
+
+# Optional npm cache directory
+.npm
+.idea
+.env
+
+# dotenv environment variables file
+.env
