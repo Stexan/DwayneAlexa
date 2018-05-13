@@ -1,6 +1,7 @@
 'use strict';
 
-const apiUrl     = 'http://8e7c7e09.ngrok.io/';
+// const apiUrl     = 'http://8e7c7e09.ngrok.io/';
+const apiUrl     = 'http://localhost:5000/';
 let started      = false;
 let currentState = true;
 
@@ -24,7 +25,7 @@ $(function() {
                 changeState(data.state);
             }
         });
-    }, 2000);
+    }, 300);
 });
 
 function showResults() {
