@@ -8,9 +8,6 @@ let currentState = true;
 $(function() {
     setInterval(function() {
         getState(function(data) {
-          console.log(typeof data);
-            console.log(!!data);
-
             if (!data && started) {
                 // Exercise finished
                 showResults();
@@ -23,10 +20,10 @@ $(function() {
                 $('#workout-card').show();
                 return;
             }
-            console.log('started', started);
-            $('#position-image').attr('src', 'assets/images/pos_' + data.position + '.png');
+            $('#position-image').attr('src', 'assets/images/pos_' + data.position + '.jpg');
 
             if (data.state !== currentState) {
+                console.log('State different, current state: ', currentState);
                 changeState(data.state);
             }
         });
