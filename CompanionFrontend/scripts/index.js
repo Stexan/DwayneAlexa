@@ -8,9 +8,9 @@ let currentState = true;
 $(function() {
     setInterval(function() {
         getState(function(data) {
-            if (!data) {
+            if (!data && started) {
                 // Exercise finished
-                if (started) showResults();
+                showResults();
                 return;
             }
 
