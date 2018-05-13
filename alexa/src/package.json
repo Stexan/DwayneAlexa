@@ -1,0 +1,14 @@
+{
+  "name": "Hacktm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo for HackTm 2018",
+  "main": "index.js",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "request": "^2.85.0"
+  },
+  "devDependencies": {},
+  "author": "Bogdan Cimpoesu @Haufe Lexware",
+  "license": "SEE LICENSE IN license.md"
+}

@@ -1,0 +1,92 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "exercising",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "SayHelloIntent",
+                    "slots": [],
+                    "samples": [
+                        "Say hi",
+                        "Say hello",
+                        "Greet everyone",
+                        "Say hello to everyone"
+                    ]
+                },
+                {
+                    "name": "IWantLegsIntent",
+                    "slots": [],
+                    "samples": [
+                        "I want big legs just like The Rocks",
+                        "I want big legs",
+                        "I want to look like The Rock"
+                    ]
+                },
+                {
+                    "name": "LetsStartIntent",
+                    "slots": [],
+                    "samples": [
+                        "Lets start"
+                    ]
+                },
+                {
+                    "name": "HowDidIDoIntent",
+                    "slots": [],
+                    "samples": [
+                        "How did I do",
+                        "Whats my performance",
+                        "performance"
+                    ]
+                },
+                {
+                    "name": "RepeatQuestionIntent",
+                    "slots": [],
+                    "samples": [
+                        "Repeat Question",
+                        "Repeat",
+                        "What did you say",
+                        "What did you ask",
+                        "Ask Again",
+                        "I didn't get what you said",
+                        "I didn't get that",
+                        "Can you repeat"
+                    ]
+                },
+                {
+                    "name": "TellTriviaIntent",
+                    "slots": [],
+                    "samples": [
+                        "Give me some trivia",
+                        "Tell me some trivia",
+                        "Trivia"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}
