@@ -15,6 +15,13 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00E6FF', endColorstr='#5CACFF',GradientType=0 ); /* ie6-9 */
 }
 
+#central-card {
+    background: white;
+    margin: 100px;
+    min-width: 100%;
+    min-height: 100%;
+}
+
 #position-image {
     max-height: 300px;
 }

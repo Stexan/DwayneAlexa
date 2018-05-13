@@ -38,7 +38,9 @@
                     "name": "LetsStartIntent",
                     "slots": [],
                     "samples": [
-                        "Lets start"
+                        "Lets start",
+                        "I'm ready",
+                        "I'm go"
                     ]
                 },
                 {
@@ -47,6 +49,8 @@
                     "samples": [
                         "How did I do",
                         "Whats my performance",
+                        "How did I perform",
+                        "How did it go",
                         "performance"
                     ]
                 },
