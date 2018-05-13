@@ -34,10 +34,13 @@ def get_state_api():
     x = open("workout_state").read()
     if len(x) > 3:
         workout_position, workout_state = x.split("|")
-        print x
-        print workout_position
+        #print x
         print workout_state
-        return {'position' : int(workout_position), 'state' : bool(workout_state)}
+        if workout_state == "False":
+            return {'position' : int(workout_position), 'state' : False}
+        else:
+        #print workout_state
+            return {'position' : int(workout_position), 'state' : True}
     return x
 
 

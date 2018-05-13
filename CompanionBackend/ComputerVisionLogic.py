@@ -138,7 +138,11 @@ def start_workout():
 
             # analyze move if it is the time to do so (trigger)
             if persistence > 0 and trigger > 0:
-                open("workout_state","w").write(str(workout_move[time_index]) + "|" + str(True))
+                if time_index > 0:
+                    open("workout_state","w").write(str(workout_move[time_index-1]) + "|" + str(True))
+
+                print "new"
+
                 persistence -= 1
                 for k in keypoints:
                     last_positions.append(k.pt[1])
@@ -147,7 +151,11 @@ def start_workout():
                 result_bool, result_string = get_feedback(trigger, last_positions)
                 stats.append(result_bool)
                 print result_string
-                open("workout_state","w").write(str(workout_move[time_index]) + "|" + str(result_bool))
+                if time_index > 0:
+                    print "result"
+                    open("workout_state","w").write(str(workout_move[time_index-1]) + "|" + str(result_bool))
+                else:
+                    open("workout_state","w").write(str(1) + "|" + str(True))
 
                 last_positions = []
                 persistence = 20

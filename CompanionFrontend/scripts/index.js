@@ -8,24 +8,29 @@ let currentState = true;
 $(function() {
     setInterval(function() {
         getState(function(data) {
+          console.log(typeof data);
+            console.log(!!data);
+
             if (!data && started) {
                 // Exercise finished
                 showResults();
                 return;
             }
 
-            if (!started) {
+            if (!started && data) {
+                started = true;
                 $('#rock-card').hide();
                 $('#workout-card').show();
+                return;
             }
-
+            console.log('started', started);
             $('#position-image').attr('src', 'assets/images/pos_' + data.position + '.png');
 
             if (data.state !== currentState) {
                 changeState(data.state);
             }
         });
-    }, 300);
+    }, 100);
 });
 
 function showResults() {
