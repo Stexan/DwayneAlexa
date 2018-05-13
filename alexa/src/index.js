@@ -136,6 +136,6 @@ const responseHandler = Alexa.CreateStateHandler(states.START, {
     },
     'Unhandled'        : function() {
         lastAlexaPhrase = 'help';
-        this.emit(':ask', 'I don\'t get that. ' + messages.help);
+        this.emit(':ask', 'I didn\'t get that. ' + messages.help);
     }
 });
