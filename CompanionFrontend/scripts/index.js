@@ -1,6 +1,7 @@
 'use strict';
 
-const apiUrl = 'http://8e7c7e09.ngrok.io/';
+//const apiUrl = 'http://8e7c7e09.ngrok.io/';
+const apiUrl = 'http://localhost:5000/';
 
 $(function() {
     setInterval(function() {
@@ -11,7 +12,7 @@ $(function() {
                 $('#state').html(data.state);
             }
         });
-    }, 2000);
+    }, 300);
 });
 
 function getState(callback) {
