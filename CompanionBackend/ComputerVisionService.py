@@ -1,9 +1,12 @@
 from flask_api import FlaskAPI
-import computer_vision
+import ComputerVisionLogic
 from multiprocessing.pool import ThreadPool
+from flask_cors import CORS
+from json import dumps
 
 
 app = FlaskAPI(__name__)
+CORS(app)
 #workout_thread = threading.Thread(target=computer_vision.start_workout, args=(), kwargs={})
 workout_pool = ThreadPool(processes=1)
 async_result = None
@@ -12,7 +15,7 @@ async_result = None
 def start_workout_api():
     global workout_pool, async_result
 
-    async_result = workout_pool.apply_async(computer_vision.start_workout, ()) # tuple of args for foo
+    async_result = workout_pool.apply_async(ComputerVisionLogic.start_workout, ()) # tuple of args for foo
 
     #stats = computer_vision.start_workout()
     return {'dwayne': "the rock"}
@@ -26,6 +29,17 @@ def get_stats_api():
     else:
         return {'ERROR': "Don't have any stats"}
 
+@app.route('/dwayne_alexa/check')
+def get_state_api():
+    x = open("workout_state").read()
+    if len(x) > 3:
+        workout_position, workout_state = x.split("|")
+        print x
+        print workout_position
+        print workout_state
+        return {'position' : int(workout_position), 'state' : bool(workout_state)}
+    return x
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

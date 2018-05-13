@@ -1,10 +1,9 @@
-
 import numpy as np
 import cv2
 from time import time
 
+# workout sample
 workout_move =  [3, 2, 1, 3, 1, 1, 3, 1, 3, 1, 3, 2, 1]
-workout_time = [10, 13, 16, 19, 22, 25, 28, 30, 32, 33, 34, 35, 36]
 workout_time = [2,   5,  8, 11, 14, 17, 20, 22, 24, 25, 26, 27, 28]
 
 class BackGroundSubtractor:
@@ -35,15 +34,16 @@ class BackGroundSubtractor:
 
         return cv2.absdiff(self.backGroundModel.astype(np.uint8),frame)
 
+# simple function to filter the original frame
 def denoise(frame):
     frame = cv2.medianBlur(frame,5)
     frame = cv2.GaussianBlur(frame,(5,5),0)
 
     return frame
 
+# decides whether the exercise was performed correctly or not
 def get_feedback(move, last_moves):
 
-    print "here"
     print last_moves
     if len(last_moves) >=5:
         last_moves.sort()
@@ -69,12 +69,15 @@ def get_feedback(move, last_moves):
         else:
             return False, "Wrong"
     else:
-        return True, "WRONG STATE!!"
+        return True, "WRONG STATE!!" # it will never reach here, hopefully
 
+# the main workout loop
 def start_workout():
+    # open main camera & read a first frame
     cam = cv2.VideoCapture(0)
     ret,frame = cam.read()
 
+    # check if read correctly and proceed
     if ret is True:
         backSubtractor = BackGroundSubtractor(0.3, denoise(frame))
         run = True
@@ -84,11 +87,10 @@ def start_workout():
         run = False
 
 
-    # Set up the detector with default parameters.
-    # Perform a simple blob detect
+    # set up the blob detector with custom parameters.
     params = cv2.SimpleBlobDetector_Params()
     params.filterByArea = True
-    params.minArea = 200  # The dot in 20pt font has area of about 30
+    params.minArea = 200  # the dot in 20pt font has area of about 30
     params.filterByCircularity = False
     params.minCircularity = 0.7
     params.filterByConvexity = False
@@ -97,25 +99,27 @@ def start_workout():
     params.minInertiaRatio = 0.4
     detector = cv2.SimpleBlobDetector_create(params)
 
+    # helper variables
     last_positions = []
     persistence = 20
     trigger = 0
     time_index = 0
 
-    #start time counter
+    # start time counter
     start_time = time()
 
     #stats init.
     stats = []
 
+    # start main loop
     while(run):
-    	# Read a frame from the camera
+    	# read a frame from the camera
         ret,frame = cam.read()
         cv2.imshow('input', denoise(frame))
 
-    	# If the frame was properly read.
+    	# if the frame was properly read.
         if ret is True:
-            # Show the filtered image
+            # show the filtered image
             cv2.imshow('input', denoise(frame))
 
             # get the foreground
@@ -123,31 +127,33 @@ def start_workout():
 
             gray_image = cv2.cvtColor(foreGround, cv2.COLOR_BGR2GRAY)
 
-            # Apply thresholding on the background and display the resulting mask
+            # apply thresholding on the background and display the resulting mask
             ret, mask = cv2.threshold(gray_image , 10, 255, cv2.THRESH_BINARY)
 
-            #detect keypoints
+            # detect keypoints
             keypoints = detector.detect(mask)
             im_with_keypoints = cv2.drawKeypoints(mask, keypoints, np.array([]), (0,0,255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
             cv2.imshow("Keypoints", im_with_keypoints)
 
-            #analyze move
+            # analyze move if it is the time to do so (trigger)
             if persistence > 0 and trigger > 0:
+                open("workout_state","w").write(str(workout_move[time_index]) + "|" + str(True))
                 persistence -= 1
                 for k in keypoints:
-                    #print k.pt[1]
                     last_positions.append(k.pt[1])
             elif persistence == 0:
                 #give feedback
                 result_bool, result_string = get_feedback(trigger, last_positions)
                 stats.append(result_bool)
                 print result_string
+                open("workout_state","w").write(str(workout_move[time_index]) + "|" + str(result_bool))
 
                 last_positions = []
                 persistence = 20
                 trigger = 0
 
+            # test if it is time to trigger the validator
             now = time()
             time_passed = int(now - start_time)
             if time_passed > workout_time[time_index]:
@@ -160,11 +166,13 @@ def start_workout():
         else:
             break
 
+        # stop condition
         k = cv2.waitKey(30) & 0xff
         if k == 27:
             break
 
     cam.release()
     cv2.destroyAllWindows()
+    open("workout_state", "w").write("")
 
     return stats
