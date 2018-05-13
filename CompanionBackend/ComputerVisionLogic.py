@@ -141,6 +141,8 @@ def start_workout():
                 if time_index > 0:
                     open("workout_state","w").write(str(workout_move[time_index-1]) + "|" + str(True))
 
+                print "new"
+
                 persistence -= 1
                 for k in keypoints:
                     last_positions.append(k.pt[1])
@@ -150,6 +152,7 @@ def start_workout():
                 stats.append(result_bool)
                 print result_string
                 if time_index > 0:
+                    print "result"
                     open("workout_state","w").write(str(workout_move[time_index-1]) + "|" + str(result_bool))
                 else:
                     open("workout_state","w").write(str(1) + "|" + str(True))
